@@ -1,6 +1,6 @@
 # Documentação do Projeto Hospitalar
 
-Este diretório contém a Especificação de Requisitos de Software (SRD) e os artefatos de análise de sistemas para o projeto [NOME DO SISTEMA].
+Este diretório contém a Especificação de Requisitos de Software (SRD) e os artefatos de análise de sistemas para o projeto quickAPAC.
 
 ## 🚀 Spec-Driven Development (SDD)
 Este projeto utiliza o padrão de desenvolvimento orientado a especificações auxiliado por IA. A documentação não é apenas leitura passiva, mas sim um **contrato executável**.
