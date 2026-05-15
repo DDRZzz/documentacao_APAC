@@ -1,7 +1,7 @@
 # Interfaces e Integrações
 
 ## 1. Protótipos
-* Links para Figma ou diretório /assets.
+* https://gemini.google.com/share/9fa65150c245
 
 ## 2. Hardware
 * Impressoras térmicas e leitores de código de barras.
