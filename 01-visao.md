@@ -6,7 +6,7 @@
 * **Solução Proposta**: O quickAPAC é uma solução que utiliza Processamento de Linguagem Natural (PLN) para automatizar a geração das APACs (CID). A plataforma visa acelerar o tempo de preenchimento, mitigar o retrabalho, eliminar o extravio físico de documentos e garantir maior precisão no fluxo de dados.
 
 ## 2. Partes Interessadas (Stakeholders)
-* Setor de Oncologia (HC), Setor de Faturamento, Hernani.
+* Setor de Oncologia (HC), Setor de Faturamento.
 
 ## 3. Escopo do Produto
 * Extração de dados de prontuário do módulo Ambulatório do AGHU (campos estruturados).
