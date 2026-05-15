@@ -5,12 +5,17 @@
 | :--- | :--- | :--- | :--- |
 | RF001 | Autenticação | Login via LDAP/AD do hospital. | Essencial |
 | RF002 | Cadastro | Registro de pacientes com CNS/CPF. | Essencial |
+| RF003 |	Extração do AGHU | Coletar dados estruturados do paciente no módulo Ambulatório do AGHU. |	Essencial |
+| RF004 | Análise PLN |	Extrair entidades clínicas de textos livres do prontuário. | Essencial |
+| RF005	| Validação Médica | Interface WEB para visualização, edição e aprovação das APACs pré-preenchidas pela IA. | Essencial
 
 ## 2. Requisitos Não Funcionais (RNF)
 | ID | Categoria | Descrição |
 | :--- | :--- | :--- |
 | RNF001 | Segurança | Criptografia AES-256. |
 | RNF002 | LGPD | Auditoria de acesso a dados sensíveis. |
+| RNF003 |	Desempenho | O processamento PLN e o retorno da pré-APAC devem ocorrer em tempo hábil. |
+| RNF005 | Usabilidade | A interface WEB deve operar de forma fluida nos navegadores e resoluções padrão das estações de trabalho da Oncologia. |
 
 ## 3. Detalhamento SDD (CARE)
 Para cada requisito, a implementação deve seguir o padrão:
