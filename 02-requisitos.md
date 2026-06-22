@@ -6,16 +6,17 @@
 | RF001 | Autenticação | Login via LDAP/AD do hospital. | Essencial |
 | RF002 | Cadastro | Registro de pacientes com CNS/CPF. | Essencial |
 | RF003 |	Extração do AGHU | Coletar dados estruturados do paciente no módulo Ambulatório do AGHU. |	Essencial |
-| RF004 | Análise PLN |	Extrair entidades clínicas de textos livres do prontuário. | Essencial |
-| RF005	| Validação Médica | Interface WEB para visualização, edição e aprovação das APACs pré-preenchidas pela IA. | Essencial
+| RF004 | Mapeamento do dicionário |	Identificar palavras estruturadas do campo de evolução e transformar no Cid | Essencial |
+| RF005	| Validação do Analista | Preenchimento de planilha com os dados da Apac para validação | Essencial
+| RF006 | Faturamento e Controle | Criação de arquivo para ser importado pelo APAC Magnético e dashboard de controle de APACS Vigentes | Essencial |
 
 ## 2. Requisitos Não Funcionais (RNF)
 | ID | Categoria | Descrição |
 | :--- | :--- | :--- |
 | RNF001 | Segurança | Criptografia AES-256. |
 | RNF002 | LGPD | Auditoria de acesso a dados sensíveis. |
-| RNF003 |	Desempenho | O processamento PLN e o retorno da pré-APAC devem ocorrer em tempo hábil. |
-| RNF005 | Usabilidade | A interface WEB deve operar de forma fluida nos navegadores e resoluções padrão das estações de trabalho da Oncologia. |
+| RNF003 |	Desempenho | A identificação do Cid e o retorno da planilha devem ocorrer em tempo hábil. |
+| RNF005 | Usabilidade | O dashboard deve operar de forma fluida nos navegadores e resoluções padrão das estações de trabalho da Oncologia. |
 
 ## 3. Detalhamento SDD (CARE)
 Para cada requisito, a implementação deve seguir o padrão:
