@@ -21,6 +21,6 @@ flowchart LR
 
 #### [CARE-UC001] Implementação da Consulta
 * **Context**: Paciente identificado e autenticado.
-* **Action**: Extrair dados do prontuário eletrônico e processar com a LLM.
-* **Result**: Dados de formulário exibidos numa interface WEB semelhante ao formulário APAC.
-* **Evaluation**: Teste unitário deve validar tempo de resposta da página WEB.
+* **Action**: Extrair dados do prontuário eletrônico e utilizar o dicionário para procurar as palavras chaves no campo de evolução da GHU.
+* **Result**: Arquivo com as informações das APACs para ser importado pelo APAC magnético e dashboard para controle das APACs vigentes.
+* **Evaluation**: Teste unitário para o validar tempo de resposta de criação das planilhas.
