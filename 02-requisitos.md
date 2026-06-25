@@ -9,7 +9,7 @@
 | RF004 | Mapeamento semântico |	Fazer a correlação de palvras encontradas com os respctivos Código de procedimento, CID e CID secundário | Essencial |
 | RF005 |	Sinalização de erro | Retornar nulo caso uma palavra não seja encontrada no seu dicionário |	Essencial |
 | RF006 |	Solicitação de preenchimento | Caso uma palavra não seja encontrada, fornecer interface para preenchimento, salvando automaticamente as alterações no dicionário | Essencial |
-| RF007 |	Interface BI | Fornecer dashboard semelhante a planilha de faturamento para controle | Essencial |
+| RF007 |	Interface BI | Fornecer dashboard semelhante a planilha de faturamento para controle | Média |
 | RF008 | Exportação | Formatar o documento para exportação para o APAC Magnético | Média |
 
 ## 2. Requisitos Não Funcionais (RNF)
@@ -48,15 +48,15 @@ Para cada requisito, a implementação deve seguir o padrão:
 * **Evaluation (Avaliação)**: Teste unitário injetando termos conhecidos e garantindo o retorno do objeto com o CID exato.
 
 ### [CARE-RF005] Sinalização de erro
-* **Context (Contexto)**: O laço de repetição (RF004) encontrou uma palavra médica que não existe no dicionário.
-* **Action (Ação)**: Interromper a tentativa de associação automática para a palavra específica e acionar uma flag de erro/pendência.
-* **Result (Resultado)**: Retorno de valor null para os códigos daquela palavra, sinalizando pendência no processamento final da APAC.
-* **Evaluation (Avaliação)**: Injetar termos fictícios nos testes da API para garantir que o response retorne null e a flag has_pending_terms = true.
+* **Context (Contexto)**: O laço de repetição (RF004) não encontrou uma palavra correspondente no seu dicionário.
+* **Action (Ação)**: Interromper a tentativa de associação automática e acionar uma flag de erro/pendência.
+* **Result (Resultado)**: Retorno de valor null, sinalizando pendência no processamento final da APAC.
+* **Evaluation (Avaliação)**: Injetar termos fictícios nos testes da API para garantir que o response retorne null.
 
 ### [CARE-RF006] Solicitação de preenchimento
 * **Context (Contexto)**: O front-end identificou pacientes com termos null pendentes de validação humana.
 * **Action (Ação)**: Fornecer formulário e um endpoint POST/PUT para receber o jargão e o código oficial correspondente apontado pelo analista.
-* **Result (Resultado)**: A palavra pendente é resolvida para o paciente atual e a nova relação termo → código é salva no banco de dados do dicionário.
+* **Result (Resultado)**: A pendencia é resolvida para o paciente atual e a nova relação termo → código é salva no banco de dados do dicionário.
 * **Evaluation (Avaliação)**: Inserir um termo novo via requisição, checar a inserção no banco e rodar o RF004 imediatamente após para garantir que a busca já encontra a nova palavra.
 
 ### [CARE-RF007] Interface BI
