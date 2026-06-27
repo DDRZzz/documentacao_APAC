@@ -38,7 +38,7 @@ flowchart LR
 #### [CARE-UC001] Processar lote de APAC
 * **Context (Contexto)**: Usuário clica no botão para iniciar o processamento em lote do dia.
 * **Action (Ação)**: Extrair dados estruturados e prontuários do AGHU, normalizar os textos e buscar as palavras-chave no Dicionário local.
-* **Result (Resultado)**: Separação em duas filas: APACs mapeadas com sucesso (prontas) e APACs com termos desconhecidos (pendentes).
+* **Result (Resultado)**: Separação por status: APACs mapeadas com sucesso (PRONTA) e APACs com termos desconhecidos (PENDENTE).
 * **Evaluation (Avaliação)**: Injetar um payload mockado do AGHU nos testes e garantir que o sistema retorna os arrays de `resolvidos` e `pendentes` corretamente.
 
 ### UC002 - Validar pendências de dicionário (HITL)
@@ -48,7 +48,7 @@ flowchart LR
 #### [CARE-UC002] Validar pendências de dicionário
 * **Context (Contexto)**: O processamento (UC001) não encontrou palavras conhecidas.
 * **Action (Ação)**: Fornecer formulário na interface para o usuário preencher o CID/Procedimento correspondente àquela palavra e salvar a alteração.
-* **Result (Resultado)**: Nova associação termo-código adicionada ao banco de dados e a APAC do paciente é movida para a fila de "prontas".
+* **Result (Resultado)**: Nova associação termo-código adicionada ao banco de dados e o status da APAC do paciente é atualizado para PRONTA.
 * **Evaluation (Avaliação)**: Teste de API (`POST /dicionario`): Inserir um novo mapeamento no banco e validar se uma nova busca pela mesma palavra agora retorna o código correto em vez de NULL.
 
 ### UC003 - Gerar Arquivo de Exportação
