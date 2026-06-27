@@ -1,12 +1,13 @@
 # SPEC.md - Contrato de Desenvolvimento (SDD)
 
 ## 1. Visão Geral e Resultados Esperados
-Este documento é a ÚNICA fonte de verdade para a orquestração do desenvolvimento. O objetivo é construir um sistema hospitalar seguro e em conformidade com a LGPD.
+Este documento é a ÚNICA fonte de verdade para a orquestração do desenvolvimento do **QuickAPAC**. O sistema visa automatizar a geração de APACs extraindo dados do AGHU via consultas SQL nativas, cruzando textos de evolução com um Dicionário de Termos local (SQLite) via busca determinística (CTRL+F), e provendo uma interface *Human-in-the-Loop* (Vue 3) para Auditores grifarem novos jargões.
 
 ### Objetivos de Alto Nível
-- [ ] Implementar autenticação via LDAP/AD.
-- [ ] Gerenciar cadastro de pacientes (CNS/CPF).
-- [ ] Garantir trilhas de auditoria imutáveis.
+- [ ] Implementar motor de ETL usando o padrão `Provider` e `SQL Templates` do framework do HC.
+- [ ] Construir o motor determinístico no `Controller` do Back-end.
+- [ ] Desenvolver a interface visual de marca-texto (Highlight) no Vue 3.
+- [ ] Exportar arquivo posicional `.txt` do Datasus.
 
 ## 2. Contexto do Projeto (Documentação Imutável)
 As definições detalhadas estão distribuídas nos seguintes documentos:
@@ -20,25 +21,35 @@ As definições detalhadas estão distribuídas nos seguintes documentos:
 
 ## 3. Limites de Escopo e Guardrails (Anti-Patterns)
 **A IA DEVE:**
-- Seguir rigorosamente o Modelo de Dados definido em `04-modelo-dados.md`.
-- Implementar testes unitários para cada funcionalidade nova.
-- Utilizar criptografia AES-256 para dados sensíveis.
+- Respeitar estritamente o fluxo unidirecional: `Router` -> `Controller` -> `Provider`.
+- Usar SQLAlchemy APENAS para o banco local (`DICIONARIO_TERMOS` e `APAC_PROCESSAMENTO`).
+- Usar consultas `.sql` puras (`src/providers/sql/...`) para acessar o AGHU.
+- Proteger todas as rotas da API com o `auth_handler` existente no framework.
 
 **A IA NÃO DEVE:**
-- Criar dependências externas não documentadas em `06-arquitetura.md`.
-- Implementar exclusão física de registros (usar Soft Delete).
-- Burlar o sistema de RBAC (Role-Based Access Control).
+- Criar rotas para "Cadastro de Pacientes" (a extração é 100% via AGHU).
+- Sugerir o uso de bibliotecas de Inteligência Artificial ou NLP (como spaCy, NLTK).
+- Colocar regras de negócio dentro do arquivo `Router` ou do `Provider`. Toda a lógica (o "CTRL+F") vive no `Controller`.
 
 ## 4. Task Breakdown (Plano de Implementação)
-### Fase 1: Infraestrutura e Dados
-- [ ] [TASK-001] Validar esquemas de banco de dados conforme `04-modelo-dados.md`.
-- [ ] [TASK-002] Configurar ambiente de auditoria de logs.
 
-### Fase 2: Funcionalidades Essenciais
-- [ ] [TASK-003] Implementar Módulo de Autenticação (RF001).
-- [ ] [TASK-004] Implementar Cadastro de Pacientes (RF002).
+### Fase 1: Infraestrutura de Dados (Providers)
+- [ ] **[TASK-001]** Criar o SQL Template (`extrair_evolucao_apac.sql`) e o respectivo `AghuProvider` para buscar pacientes de alta complexidade.
+- [ ] **[TASK-002]** Criar os Models SQLAlchemy (`DicionarioTermo` e `ApacProcessamento`) e o `DicionarioProvider` para o banco de dados transacional (SQLite/Postgres interno).
+
+### Fase 2: Motor de Regras (Controllers)
+- [ ] **[TASK-003]** Desenvolver o `ApacController`, contendo a lógica de varredura: receber o texto do `AghuProvider`, cruzar com os termos do `DicionarioProvider` e retornar as posições (índices) das palavras mapeadas para o Front-end.
+- [ ] **[TASK-004]** Desenvolver a lógica de formatação posicional (`zfill`, `ljust`) no Controller para gerar o arquivo de exportação `.txt`.
+
+### Fase 3: APIs e Rotas (Routers)
+- [ ] **[TASK-005]** Criar o `router/apac.py` expondo os endpoints para listar pacientes do dia, adicionar palavra ao dicionário e gerar o download do TXT. (Todas as rotas injetando o `Depends(auth_handler.decode_token)`).
+
+### Fase 4: Interface de Usuário (Vue 3 Frontend)
+- [ ] **[TASK-006]** Criar a Store no Pinia (`stores/apac.ts`) para gerenciar o estado do lote e a comunicação com a API (Axios).
+- [ ] **[TASK-007]** Desenvolver a View de Dashboard com a tabela de pacientes (`status: PRONTA / EM_ANALISE`).
+- [ ] **[TASK-008]** Desenvolver o Componente de *Highlight* (Marca-texto): Renderizar a evolução clínica, pintar de verde os termos conhecidos, e capturar o evento de seleção de texto (mouse) para abrir o Modal de inserção no Dicionário.
 
 ## 5. Critérios de Verificação Global
-- [ ] 100% de cobertura em rotas de autenticação.
-- [ ] Zero vulnerabilidades críticas no lint de segurança.
-- [ ] Conformidade total com os esquemas JSON/OpenAPI.
+- [ ] A varredura de texto deve possuir cobertura de testes (`pytest`) validando cenários de extração exata das substrings.
+- [ ] Zero dependências de IA instaladas no `requirements.txt`.
+- [ ] Nenhum acesso de gravação (`INSERT`/`UPDATE`) no provider do AGHU.
