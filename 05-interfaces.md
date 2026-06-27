@@ -7,19 +7,15 @@ Nenhum por enquanto
 *Nenhum hardware específico é exigido.* A operação depende apenas de teclado e mouse tradicionais para a funcionalidade de grifar texto.
 
 ## 3. Integração com Sistemas Externos (AGHU)
-A comunicação com o AGHU ocorrerá estritamente em modo de leitura (Read-Only) para alimentar a base de transição (*staging*) do QuickAPAC.
+A comunicação com o AGHU ocorrerá estritamente em modo de leitura (Read-Only) arquitetada no Back-end via **SQL Templates**. O Front-end não interage com o AGHU.
 
-### [SCHEMA] Extração do AGHU (TypeScript)
-Contrato esperado da View ou API do hospital para a rotina de ETL.
-```typescript
-interface IExtracaoAGHU {
-  // Busca apenas pacientes de clínicas de alta complexidade (ex: Oncologia)
-  fetchPacientesAltaComplexidade(dataConsulta: string): Promise<PacienteExtrato[]>;
-}
-
-type PacienteExtrato = {
-  cns_paciente: string;
-  nome_paciente: string;
-  data_atendimento: string;
-  texto_evolucao: string; // Texto bruto
-}
+### [SQL Template] Extração do AGHU
+Contrato esperado da consulta SQL nativa (`src/providers/sql/aghu/extrair_pacientes_apac.sql`) executada pelo Provider.
+```sql
+SELECT 
+    cns_paciente, 
+    nome_paciente, 
+    data_atendimento, 
+    texto_evolucao 
+FROM agh.evolucoes_alta_complexidade 
+WHERE data_atendimento = :data_alvo;
