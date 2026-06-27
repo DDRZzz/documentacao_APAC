@@ -3,9 +3,9 @@
 ## 1. Padrões Arquiteturais
 O QuickAPAC foi projetado com foco em alta previsibilidade, segurança de dados em saúde e baixo acoplamento com o sistema legado do hospital.
 
-* **Arquitetura Determinística ("Zero IA"):** O motor de processamento de texto livre não utiliza modelos de inteligência artificial ou processamento de linguagem natural (NLP). A busca é baseada puramente em uma Tabela de Dispersão (*Hash Table*), garantindo complexidade $O(1)$ e eliminando falsos positivos.
-* **Human-in-the-Loop (HITL) Visual:** A inteligência de descoberta de novos termos é transferida do Back-end para o Front-end. O sistema aplica *highlight* (marca-texto) no que conhece, e o usuário alimenta o banco de dados selecionando manualmente as lacunas.
-* **ETL Efêmero (Staging Area):** O QuickAPAC não é um repositório mestre de pacientes. Ele consome os dados do AGHU (Extração), aplica os de-para de faturamento (Transformação) e gera o arquivo posicional (Carga/Exportação). Os dados clínicos da evolução ficam retidos no banco apenas durante o ciclo de vida do lote.
+* **Arquitetura Determinística:** O motor de processamento de texto livre não utiliza modelos de inteligência artificial ou processamento de linguagem natural (NLP). A busca é baseada puramente em uma Tabela de Dispersão.
+* **Human-in-the-Loop (HITL):** A inteligência de descoberta de novos termos é transferida do Back-end para o Front-end. O sistema aplica *highlight* (marca-texto) no que conhece, e o usuário alimenta o banco de dados selecionando manualmente as lacunas.
+* **ETL (Staging Area):** O QuickAPAC consome os dados do AGHU (Extração), aplica os de-para de faturamento (Transformação) e gera o arquivo posicional (Carga/Exportação). Os dados clínicos da evolução ficam retidos no banco apenas durante o ciclo de vida do lote.
 
 ## 2. Stack Técnica
 Considerando a necessidade de alta performance na varredura de strings e o ecossistema de desenvolvimento, a stack definida para o projeto é:
