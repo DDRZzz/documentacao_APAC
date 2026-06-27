@@ -56,7 +56,7 @@
 * **Context (Contexto)**: Modal aberto contendo o trecho selecionado pelo usuário no RF005.
 * **Action (Ação)**: Receber o *input* do CID e Procedimento, e enviar um POST/PUT para a API.
 * **Result (Resultado)**: Nova relação termo-código salva no banco. O Front-end re-renderiza o texto e a palavra recém-adicionada passa a ficar destacada (RF004).
-* **Evaluation (Avaliação)**: Inserir termo via API, validar persistência no banco e conferir se o status da APAC do paciente foi atualizado para "Pronto".
+* **Evaluation (Avaliação)**: Inserir termo via API, validar persistência no banco e conferir se o status da APAC do paciente foi atualizado para PRONTA.
 
 ### [CARE-RF007] Interface BI
 * **Context (Contexto)**: Dados de APACs consolidados no banco de dados.
