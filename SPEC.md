@@ -35,7 +35,7 @@ As definições detalhadas estão distribuídas nos seguintes documentos:
 
 ### Fase 1: Infraestrutura de Dados (Providers)
 - [ ] **[TASK-001]** Criar o SQL Template (`extrair_pacientes_apac.sql`) e o respectivo `AghuProvider` para buscar pacientes de alta complexidade.
-- [ ] **[TASK-002]** Criar os Models SQLAlchemy (`DicionarioTermo` e `ApacProcessamento`) e o `DicionarioProvider` para o banco de dados transacional (SQLite/Postgres interno).
+- [ ] **[TASK-002]** Criar os Models SQLAlchemy (`DicionarioTermo` e `ApacProcessamento`) e o `DicionarioProvider` para o banco de dados transacional (SQLite/Postgres interno). Nota: Ao receber os dados do Provider SQL, o Controller deve gerar um UUID (versão 4) para preencher o campo id_apac de cada registo antes de salvar na base de dados.
 
 ### Fase 2: Motor de Regras (Controllers)
 - [ ] **[TASK-003]** Desenvolver o `ApacController`, contendo a lógica de varredura: receber o texto do `AghuProvider`, cruzar com os termos do `DicionarioProvider` e retornar as posições (índices) das palavras mapeadas para o Front-end.
