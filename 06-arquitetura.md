@@ -8,11 +8,10 @@ O QuickAPAC foi projetado com foco em alta previsibilidade, segurança de dados 
 * **ETL (Staging Area):** O QuickAPAC consome os dados do AGHU (Extração), aplica os de-para de faturamento (Transformação) e gera o arquivo posicional (Carga/Exportação). Os dados clínicos da evolução ficam retidos no banco apenas durante o ciclo de vida do lote.
 
 ## 2. Stack Técnica
-Considerando a necessidade de alta performance na varredura de strings e o ecossistema de desenvolvimento, a stack definida para o projeto é:
-
-* **Back-end:** FastAPI (Python). Escolhido pela alta performance assíncrona, excelente suporte a tipagem e facilidade em manipular estruturas de dados complexas para a varredura do dicionário.
-* **Front-end:** React. Escohido pela facilidade na criação de SPAs (Single Page Applications) e na manipulação dinâmica do DOM (necessária para a renderização do texto livre com as *tags* de destaque e captura de eventos de seleção de texto pelo mouse).
-* **Banco de Dados:** PostgreSQL (ou o banco relacional padrão da infraestrutura do HC). Utilizado para armazenar o dicionário e os lotes em trânsito.
+A stack definida para o projeto segue as diretrizes do framework base da instituição:
+* **Back-end:** FastAPI (Python), orquestrando rotas, controladores e provedores.
+* **Front-end:** Vue 3, gerenciamento de estado com Pinia e estilização via Tailwind CSS.
+* **Banco de Dados:** Consultas nativas (.sql) para leitura do AGHU (PostgreSQL/Oracle) e ORM SQLAlchemy exclusivo para o banco transacional local da aplicação (SQLite/Postgres interno).
 
 ## 3. Segurança e Conformidade (LGPD)
 Sendo um sistema de retaguarda hospitalar, o tráfego e acesso aos dados seguem regras estritas:
@@ -23,12 +22,10 @@ Sendo um sistema de retaguarda hospitalar, o tráfego e acesso aos dados seguem 
 * **Criptografia:** Tráfego de dados protegido por TLS 1.2+ e criptografia AES-256 para os dados sensíveis em repouso no banco de dados.
 
 ## 4. Guardrails para IA (SDD)
-Para manter a integridade sistêmica e arquitetural, os assistentes de IA utilizados no desenvolvimento devem aderir às seguintes restrições:
-
 ### Escopo Positivo (O que fazer)
-- **Otimização de Busca:** Priorizar a eficiência algorítmica (ex: uso de dicionários/sets em Python) ao processar os textos da evolução médica.
-- **Tratamento de Erros:** Utilizar blocos `try-catch` (ou `try-except`) com logs de erro padronizados que **NÃO exponham** dados sensíveis (Nome ou CNS do paciente).
-- **Testes:** Criar arquivos de teste unitário e de integração para cada novo endpoint ou componente, focando no retorno de layouts posicionais estritos.
+- **Fluxo Unidirecional:** Respeitar a arquitetura estrita: `Router -> Controller -> Provider -> SQL Template`. O Router não deve conter regras de negócio.
+- **SQL Nativo para AGHU:** Utilizar exclusivamente arquivos `.sql` em `src/providers/sql/` para buscar dados de pacientes, nunca ORM.
+- **Testes Backend:** Criar um arquivo de teste utilizando `pytest` (ex: `test_apac_controller.py`) para validar as regras de negócio em Python.
 
 ### Escopo Negativo (O que NÃO fazer - Anti-Patterns)
 - **Proibido Sugerir Bibliotecas de IA:** Não adicionar dependências de NLP (como spaCy, NLTK) ou chamadas a APIs de LLMs. O escopo é 100% determinístico.
