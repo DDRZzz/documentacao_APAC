@@ -34,7 +34,7 @@ As definições detalhadas estão distribuídas nos seguintes documentos:
 ## 4. Task Breakdown (Plano de Implementação)
 
 ### Fase 1: Infraestrutura de Dados (Providers)
-- [ ] **[TASK-001]** Criar o SQL Template (`extrair_evolucao_apac.sql`) e o respectivo `AghuProvider` para buscar pacientes de alta complexidade.
+- [ ] **[TASK-001]** Criar o SQL Template (`extrair_pacientes_apac.sql`) e o respectivo `AghuProvider` para buscar pacientes de alta complexidade.
 - [ ] **[TASK-002]** Criar os Models SQLAlchemy (`DicionarioTermo` e `ApacProcessamento`) e o `DicionarioProvider` para o banco de dados transacional (SQLite/Postgres interno).
 
 ### Fase 2: Motor de Regras (Controllers)
@@ -46,7 +46,7 @@ As definições detalhadas estão distribuídas nos seguintes documentos:
 
 ### Fase 4: Interface de Usuário (Vue 3 Frontend)
 - [ ] **[TASK-006]** Criar a Store no Pinia (`stores/apac.ts`) para gerenciar o estado do lote e a comunicação com a API (Axios).
-- [ ] **[TASK-007]** Desenvolver a View de Dashboard com a tabela de pacientes (`status: PRONTA / EM_ANALISE`).
+- [ ] **[TASK-007]** Desenvolver a View de Dashboard com a tabela de pacientes (filtrando por `status: PENDENTE / PRONTA`).
 - [ ] **[TASK-008]** Desenvolver o Componente de *Highlight* (Marca-texto): Renderizar a evolução clínica, pintar de verde os termos conhecidos, e capturar o evento de seleção de texto (mouse) para abrir o Modal de inserção no Dicionário.
 
 ## 5. Critérios de Verificação Global
