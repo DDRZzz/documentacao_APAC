@@ -10,7 +10,7 @@ erDiagram
         string nome_paciente
         date data_atendimento
         text texto_evolucao "Texto bruto para renderização no Front-end"
-        string status "Ex: EM_ANALISE, PRONTA, EXPORTADA"
+        string status "Ex: PENDENTE, PRONTA, EXPORTADA"
     }
 
     DICIONARIO_TERMOS {
