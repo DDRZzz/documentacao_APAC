@@ -39,7 +39,7 @@ flowchart LR
 * **Context (Contexto)**: Usuário clica no botão para iniciar o processamento em lote do dia.
 * **Action (Ação)**: Extrair dados estruturados e prontuários do AGHU, normalizar os textos e buscar as palavras-chave no Dicionário local.
 * **Result (Resultado)**: Separação por status: APACs mapeadas com sucesso (PRONTA) e APACs com termos desconhecidos (PENDENTE).
-* **Evaluation (Avaliação)**: Injetar um payload mockado do AGHU nos testes e garantir que o sistema retorna os arrays de `resolvidos` e `pendentes` corretamente.
+* **Evaluation (Avaliação)**: Injetar um payload mockado do AGHU nos testes e garantir que o sistema retorna os arrays de prontas e pendentes corretamente.
 
 ### UC002 - Validar pendências de dicionário (HITL)
 * **Ator**: Analista de faturamento (Ernani).
