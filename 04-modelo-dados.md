@@ -5,7 +5,7 @@
 ```mermaid
 erDiagram
     APAC_PROCESSAMENTO {
-        string id_apac PK "Identificador único da extração"
+        string id_apac PK "UUID gerado automaticamente pelo backend no momento da extração"
         string cns_paciente "Chave do paciente no AGHU"
         string nome_paciente
         date data_atendimento
