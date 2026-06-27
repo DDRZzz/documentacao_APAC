@@ -23,10 +23,10 @@
 ## 3. Detalhamento SDD (CARE)
 
 ### [CARE-RF001] Autenticação LDAP
-* **Context (Contexto)**: Servidor LDAP configurado e credenciais de serviço disponíveis.
-* **Action (Ação)**: Criar middleware de autenticação que consulte o AD.
-* **Result (Resultado)**: Token JWT gerado após sucesso; Código 401 em falha.
-* **Evaluation (Avaliação)**: Executar `npm test tests/auth.spec.ts` (deve passar com 100% de sucesso).
+* **Context (Contexto)**: Módulo de autenticação (`auth_handler.py`) existente no framework.
+* **Action (Ação)**: Proteger as rotas do QuickAPAC utilizando a injeção de dependência `Depends(auth_handler.decode_token)`.
+* **Result (Resultado)**: Acesso negado (401) sem token válido.
+* **Evaluation (Avaliação)**: Requisições HTTP para os endpoints da APAC sem o Header de Autorização devem falhar com HTTP Status 401.
 
 ### [CARE-RF002] Extração AGHU
 * **Context (Contexto)**: Permissões de leitura concedidas para as tabelas ou visualizações do AGHU.
