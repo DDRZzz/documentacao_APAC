@@ -19,3 +19,4 @@ SELECT
     texto_evolucao 
 FROM agh.evolucoes_alta_complexidade 
 WHERE data_atendimento = :data_alvo;
+```
